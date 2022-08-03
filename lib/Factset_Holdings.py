@@ -1,6 +1,5 @@
 from datatable import f, dt, last
 import os
-import pyodbc
 from datetime import datetime
 from db import Database
 
@@ -125,15 +124,8 @@ def save_jepun_data(jepun_frame, cursor):
 if __name__ == '__main__':
     RMDB_path = r'\\sptwap00004\DTIReport\\ERMFiles\\RMDB\\Upload'
 
-    driver = 'SQL Server'
-    server = 'SPTWGIS00001'
-    database = 'Performance'
-    driver_str = f'DRIVER={driver};SERVER={server};DATABASE={database}'
-    cnxn = pyodbc.connect(driver_str)
-    cursor = cnxn.cursor()
-
-    # performance_db = Database(driver, server, database)
-    # cursor = performance_db.cursor
+    performance_db = Database()
+    cursor = performance_db.cursor
 
     latest_date = cursor.execute('select max(date_) as md from factset_holdings').fetchval()
     print(f'Begin date: {latest_date}')
@@ -150,7 +142,7 @@ if __name__ == '__main__':
     
     log.close()
 
-    cnxn.close()
+    performance_db._close()
     
     # print(factset)
     # print(jepun)
