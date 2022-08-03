@@ -59,7 +59,7 @@ def save_facset_holdings_data(facset_holdings_frame, cursor):
 
         # log for tracking the process
         if date_ != last_date or last_date == 0:
-            print(f'Facset holdings: {date_} processing...') 
+            print(f'Factset holdings: {date_} processing...') 
 
         # SQL queries for inserting data into SQL Server DB       
         queries = (
@@ -97,7 +97,8 @@ def save_jepun_data(jepun_frame, cursor):
         asset_name = row[0,4].replace("'", "''") 
 
         # log for tracking the process
-        print(f'Jepun: {date_} processing...') 
+        if date_ != last_date or last_date == 0:
+            print(f'Jepun: {date_} processing...') 
 
         # query for insert jepun data into DB
         queries = (
